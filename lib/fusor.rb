@@ -95,7 +95,7 @@ module Fusor
 
       def search(query)
         super
-        p agent.page.forms.last["q"] = query
+        agent.page.forms.last["q"] = query
         agent.page.forms.last.submit
         agent.page
       end
@@ -121,14 +121,14 @@ module Fusor
     end
 
     class YandexProvider < BaseProvider
-      BASE_URL = 'http://yandex.ru'
+      BASE_URL = 'https://yandex.ru'
 
       def search(query)
         super
-        p agent.page.forms.map(&:fields)
-        #agent.page.forms[0]["q"] = query
-        #agent.page.forms[0].submit
-        #agent.page
+        form = agent.page.forms.last
+        form["text"] = query
+        form.submit
+        agent.page
       end
 
       def base_url
@@ -136,6 +136,4 @@ module Fusor
       end
     end
   end
-
-
 end

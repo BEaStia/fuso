@@ -28,6 +28,6 @@ class TestFinder < Minitest::Test
   def test_finder_yandex
     f = Fusor::Finder.new
     query = "Ivan Ivanovich"
-    assert_match(query, f.yandex(query).title)
+    assert_match(query, CGI.parse(URI(f.yandex(query).uri).query)["text"].first)
   end
 end
